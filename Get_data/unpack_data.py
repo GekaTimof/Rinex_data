@@ -46,7 +46,6 @@ def unpack_data(directory, file_name):
     print("Finish extracting rinex data from gz")
 
     # convert crx to rnx
-    directory += "-rinex"
     print("Start converting crx to rnx")
     for file_crx in os.listdir(directory):
         file_link = directory + "/" + file_crx
