@@ -13,7 +13,9 @@ crx2rnx = "CRX2RNX"
 
 # create directory and save unpacked data in it
 def unpack_data(directory, file_name):
+    # get rinex directory
     directory += "-rinex"
+
     # create directory for date
     if not os.path.exists(directory):
         os.mkdir(directory)
@@ -23,8 +25,7 @@ def unpack_data(directory, file_name):
         print("Start extracting %s" % file_name)
         zip_file.extractall(directory)
         print("Finish extracting %s" % file_name)
-
-    #delete zip file
+    # delete zip file
     os.remove(file_name)
 
     # unpack gz files
@@ -37,7 +38,11 @@ def unpack_data(directory, file_name):
                 with open(file_link[:-3], 'wb') as f_out:
                     shutil.copyfileobj(f_in, f_out)
 
-        os.remove(file_link)
+    # delete not cnx data
+    for file_gz in os.listdir(directory):
+        file_link = directory + "/" + file_gz
+        if file_gz[-4:] != ".cnx":
+            os.remove(file_link)
     print("Finish extracting rinex data from gz")
 
     # convert crx to rnx

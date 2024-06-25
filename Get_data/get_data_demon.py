@@ -13,5 +13,8 @@ file_name = f"{date}.zip"
 get_zip_rinex(link=link, file_name=file_name)
 
 # create directory and save unpacked data in it
-get_data_zip(directory=directory, file_name=file_name)
+unpack_data(directory=directory, file_name=file_name)
 
+# read all files in rinex directory convert each rnx file to json and save in directory
+# at the end delete rinex directory
+pars_rinex(directory=directory)
