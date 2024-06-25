@@ -20,4 +20,3 @@ def parsRinex(file_name: str):
     return data_json
 
 parsRinex(file_name)
-
