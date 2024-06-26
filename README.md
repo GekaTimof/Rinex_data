@@ -1,8 +1,5 @@
 Thi is readme 
 
-
-
-
 cron setings to get data
 
 comand 

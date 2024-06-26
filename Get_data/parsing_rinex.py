@@ -2,17 +2,10 @@ import os
 from gnss_tec import rnx
 import json
 
-# test datas
-date = "2024-01-01"
-directory = f"../Parsed_rinex_data/{date}"
-
 
 # read all files in rinex directory convert each rnx file to json and save in directory
 # at the end delete rinex directory
 def pars_rinex(directory: str, raw_directory: str):
-    # get rinex directory
-    #raw_directory = directory + "-rinex"
-
     # create directory for date
     if not os.path.exists(directory):
         os.mkdir(directory)
@@ -45,7 +38,7 @@ def pars_rinex(directory: str, raw_directory: str):
 
             # delete rinex
             os.remove(raw_directory + "/" + file_rinex)
-    #os.rmdir(raw_directory)
+    os.rmdir(raw_directory)
     print("Finish extracting rinex data to json")
 
 

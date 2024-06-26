@@ -3,19 +3,12 @@ import zipfile
 import gzip
 import shutil
 
-# test datas
-date = "2024-01-01"
-raw_directory = f"../Parsed_rinex_data/{date}"
-#file_name = f"{date}.zip"
-
 # shell command CRX2RNX
 crx2rnx = "CRX2RNX"
 
+
 # create raw_directory and save unpacked data in it
 def unpack_data(raw_directory, file_name):
-    # get rinex raw_directory
-    #raw_directory += "-rinex"
-
     # create raw_directory for date
     if not os.path.exists(raw_directory):
         os.mkdir(raw_directory)

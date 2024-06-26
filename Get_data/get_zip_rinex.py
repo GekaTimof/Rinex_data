@@ -1,7 +1,6 @@
-import sys
-#import requests
 import os
 import wget
+
 
 # get rinex zip file from link
 def get_zip_rinex(link: str, raw_directory: str, file_name: str):
