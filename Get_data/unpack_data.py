@@ -5,50 +5,47 @@ import shutil
 
 # test datas
 date = "2024-01-01"
-directory = f"../Parsed_rinex_data/{date}"
+raw_directory = f"../Parsed_rinex_data/{date}"
 #file_name = f"{date}.zip"
 
 # shell command CRX2RNX
 crx2rnx = "CRX2RNX"
 
-# create directory and save unpacked data in it
-def unpack_data(directory, file_name):
-    # get rinex directory
-    directory += "-rinex"
+# create raw_directory and save unpacked data in it
+def unpack_data(raw_directory, file_name):
+    # get rinex raw_directory
+    #raw_directory += "-rinex"
 
-    # create directory for date
-    if not os.path.exists(directory):
-        os.mkdir(directory)
+    # create raw_directory for date
+    if not os.path.exists(raw_directory):
+        os.mkdir(raw_directory)
 
     # extracting data from zip
-    with zipfile.ZipFile(file_name, 'r') as zip_file:
+    with zipfile.ZipFile(raw_directory + "/" + file_name, 'r') as zip_file:
         print("Start extracting %s" % file_name)
-        zip_file.extractall(directory)
+        zip_file.extractall(raw_directory)
         print("Finish extracting %s" % file_name)
     # delete zip file
-    os.remove(file_name)
+    os.remove(raw_directory + "/" + file_name)
 
     # unpack gz files
     print("Start extracting rinex data from gz")
-    for file_gz in os.listdir(directory):
-        file_link = directory + "/" + file_gz
+    for file_gz in os.listdir(raw_directory):
+        file_link = raw_directory + "/" + file_gz
 
         if file_gz[-3:] == ".gz":
             with gzip.open(file_link, 'rb') as f_in:
                 with open(file_link[:-3], 'wb') as f_out:
                     shutil.copyfileobj(f_in, f_out)
 
-    # delete not cnx data
-    for file_gz in os.listdir(directory):
-        file_link = directory + "/" + file_gz
         if file_gz[-4:] != ".cnx":
             os.remove(file_link)
     print("Finish extracting rinex data from gz")
 
     # convert crx to rnx
     print("Start converting crx to rnx")
-    for file_crx in os.listdir(directory):
-        file_link = directory + "/" + file_crx
+    for file_crx in os.listdir(raw_directory):
+        file_link = raw_directory + "/" + file_crx
 
         if file_link[-4:] == ".crx":
             # build shell command
@@ -56,5 +53,6 @@ def unpack_data(directory, file_name):
             # run shell command
             os.system(shell_command)
 
+        if file_crx[-4:] != ".rnx":
             os.remove(file_link)
     print("Finish converting crx to rnx")

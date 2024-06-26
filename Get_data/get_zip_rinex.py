@@ -1,25 +1,18 @@
 import sys
-import requests
-
+#import requests
+import os
+import wget
 
 # get rinex zip file from link
-def get_zip_rinex(link: str, file_name: str):
+def get_zip_rinex(link: str, raw_directory: str, file_name: str):
     with open(file_name, "wb") as f:
-        print("Start downloading %s" % file_name)
-        response = requests.get(link, stream=True)
-        total_length = response.headers.get('content-length')
+        # create directory for raw date
+        if not os.path.exists(raw_directory):
+            os.mkdir(raw_directory)
 
-        if total_length is None: # no content length header
-            f.write(response.content)
-        else:
-            dl = 0
-            total_length = int(total_length)
-            for data in response.iter_content(chunk_size=4096):
-                dl += len(data)
-                f.write(data)
-                done = int(50 * dl / total_length)
-                sys.stdout.write("\r[%s%s]" % ('=' * done, ' ' * (50-done)) )
-                sys.stdout.flush()
+        # get raw data from link and save it in directory
+        print("Start downloading %s" % file_name)
+        wget.download(link, out=raw_directory)
         print("Finish downloading %s" % file_name)
 
 
