@@ -1,6 +1,9 @@
-Thi is readme 
+# О системе
+Система состоит из загрузчика данных, сервера, имитирующего поток данных в реальном времени, брокера и клиента.
+[Архитектура системы](https://drive.google.com/file/d/1ccF2m9qk55W5cU35HN8JWhvvj8k0Ixh4/view?usp=sharing)
 
-cron setings to get data
+
+# cron setings to get data
 
 comand 
 ~/$ crontab -e
