@@ -25,7 +25,7 @@ print("Connecting to broker",broker)
 client.connect(broker)
 client.loop_start()
 print("Subcribing")
-client.subscribe("station_name")
+client.subscribe("ALBH")
 
 #   ждет 30 минут, не придут ли еще данные, затем выключается
 time.sleep(1800)
