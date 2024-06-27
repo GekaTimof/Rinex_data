@@ -23,7 +23,7 @@ print("Connecting to broker", broker)
 client.connect(broker)
 client.loop_start()
 print("Subcribing")
-client.subscribe("station_name")
+client.subscribe("ALBH")
 
 time.sleep(1800)
 client.disconnect()
