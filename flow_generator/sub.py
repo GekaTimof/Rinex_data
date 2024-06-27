@@ -5,6 +5,7 @@ broker="copift.ru"
 client = mqtt_client.Client("admin")
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code "+str(rc))
+
 def on_message(client, userdata, message):
     with open("data-file.txt", "a") as f:
         time.sleep(1)
