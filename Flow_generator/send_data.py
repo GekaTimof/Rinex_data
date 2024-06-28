@@ -6,13 +6,15 @@ import paho.mqtt.client as mqtt_client
 import datetime
 import json
 
+d = datetime.datetime
+
 # test data
 # broker address
 broker = "copift.ru"
 
-start_date = "2024-01-01"
-link = "/home/evgeniy/PycharmProjects/Rinex_data/Parsed_rinex_data/2024-01-01/ALBH00CAN_R_20240010000_01D_30S_MO.json"
-station_name = "ALBH"
+#start_date = "2024-01-01"
+#link = "/home/evgeniy/PycharmProjects/Rinex_data/Parsed_rinex_data/2024-01-01/ALBH00CAN_R_20240010000_01D_30S_MO.json"
+#station_name = "ALBH"
 
 
 # client data
@@ -23,17 +25,16 @@ client.username_pw_set("lena", "321")
 delay = 4
 
 # date - date when we start this script
-#start_date = argv[1]
+start_date = argv[1]
 # link - link to file with data we need to send
-#link = argv[2]
+link = argv[2]
 # station_name - name of station from where we get data
-#station_name = [3]
-
-d = datetime.datetime
+station_name = argv[3]
 
 
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code " + str(rc))
+
 client.on_connect=on_connect
 
 
@@ -67,10 +68,12 @@ with open(link) as json_file:
                                                 station_name=station_name,
                                                 sending_time=start_date + d.strftime(d.now(), " %H:%M:00")))
 
-    while not datetime.datetime.strptime(start_date, "%Y-%m-%d") == datetime.date.today() - datetime.timedelta(days=delay):
+    while True: #datetime.datetime.strptime(start_date, "%Y-%m-%d") >= datetime.date.today() - datetime.timedelta(days=delay):
         schedule.run_pending()
         time.sleep(1)
 
 # end proses of sending data
 client.disconnect()
 client.loop_stop()
+
+time.sleep(6)

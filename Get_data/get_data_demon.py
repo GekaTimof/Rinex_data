@@ -2,9 +2,13 @@ from create_data_directorys import create_data_directorys
 from get_zip_rinex import get_zip_rinex
 from unpack_data import unpack_data
 from parsing_rinex import pars_rinex
+import datetime
 
-# test datas
-date = "2024-01-01"
+# how much day ago we get data
+delay = 4
+
+
+date = datetime.date.today() - datetime.timedelta(days=delay)
 
 # constant datas
 all_raw_data_directory = "../Raw_data"
