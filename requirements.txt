@@ -1,0 +1,4 @@
+wget==3.2
+paho-mqtt==1.6.1
+schedule==1.2.2
+python-dateutil==2.9.0.post0
