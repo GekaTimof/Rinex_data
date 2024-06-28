@@ -39,6 +39,7 @@ client.on_connect=on_connect
 
 
 def send_data(client, data, station_name, sending_time):
+    #if d.strptime(sending_time, "%Y-%m-%d")  == datetime.date.today() - datetime.timedelta(days=delay + 1):
     data_to_send = json.dumps({"datetime": sending_time, "data": data})
     client.publish(f"{station_name}", data_to_send) #data.insert(0, sending_time)
 
@@ -68,7 +69,7 @@ with open(link) as json_file:
                                                 station_name=station_name,
                                                 sending_time=start_date + d.strftime(d.now(), " %H:%M:00")))
 
-    while True: #datetime.datetime.strptime(start_date, "%Y-%m-%d") >= datetime.date.today() - datetime.timedelta(days=delay):
+    while True: #datetime.datetime.strptime(start_date, "%Y-%m-%d").date() >= datetime.date.today() - datetime.timedelta(days=delay):
         schedule.run_pending()
         time.sleep(1)
 

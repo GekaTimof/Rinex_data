@@ -7,7 +7,9 @@ delay = 4
 
 # test datas
 date = "2024-01-01"
-start_date = datetime.date.today() - datetime.timedelta(days=delay) + datetime.timedelta(days=1)
+#date = datetime.date.today() - datetime.timedelta(days=delay)
+#start_date = datetime.date.today() - datetime.timedelta(days=delay) + datetime.timedelta(days=1)
+start_date = datetime.datetime.strptime("2024-01-01", "%Y-%m-%d").date()
 
 # const data
 demons_directory = '/etc/systemd/system'
@@ -47,13 +49,9 @@ WantedBy=multy-user.target"""
         shell_command = 'systemd enable ' + start_date.strftime('%Y-%m-%d') + '99' + file_name[:-5] + '.service'
         os.system(shell_command)
 
-        time.sleep(2)
-
         # reload demons
         shell_command = "systemctl daemon-reload"
         os.system(shell_command)
-
-        time.sleep(2)
 
         # start demon
         shell_command = 'systemctl start ' + start_date.strftime('%Y-%m-%d') + '99' + file_name[:-5] + '.service'

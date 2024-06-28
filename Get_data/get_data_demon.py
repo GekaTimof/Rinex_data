@@ -1,3 +1,5 @@
+import os
+
 from create_data_directorys import create_data_directorys
 from get_zip_rinex import get_zip_rinex
 from unpack_data import unpack_data
@@ -6,7 +8,6 @@ import datetime
 
 # how much day ago we get data
 delay = 4
-
 
 date = datetime.date.today() - datetime.timedelta(days=delay)
 
@@ -25,7 +26,13 @@ file_name = f"{date}.zip"
 create_data_directorys([all_raw_data_directory, all_parsed_rinex_data_directory, all_demons_directory])
 
 # get rinex zip file from link
-get_zip_rinex(link=link, raw_directory=raw_directory, file_name=file_name)
+#get_zip_rinex(link=link, raw_directory=raw_directory, file_name=file_name)
+
+# create directory for raw date
+if not os.path.exists(raw_directory):
+    os.mkdir(raw_directory)
+# simulation of getting data
+os.replace("../2024-01-01.zip", f"{raw_directory}/{date}.zip")
 
 # create directory and save unpacked data in it
 unpack_data(raw_directory=raw_directory, file_name=file_name)
